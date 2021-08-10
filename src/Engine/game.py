@@ -39,6 +39,8 @@ class GameLoop:
             self.handle_events()
             self.state.draw()
 
+            self.screen.blit(self.font.render("FPS: " + str(self.clock.get_fps()), True, (0, 0, 0)), (0, 0))
+
             pygame.display.update()
 
         pygame.quit()

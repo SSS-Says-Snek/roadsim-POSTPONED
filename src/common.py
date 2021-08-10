@@ -20,3 +20,7 @@ TITLE = "Roadsim"
 
 PATH = Path('.')
 FONT_PATH = PATH / "src/Assets/Fonts"
+
+node_size = 10
+rows = 800 // node_size
+cols = 600 // node_size
