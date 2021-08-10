@@ -1,0 +1,20 @@
+[MASTER]
+disable=
+    C0103, # doesn't conform to X naming style
+    C0114, # naming styles
+    C0115, # naming styles
+    C0116, # naming styles
+    C0411, # import order
+    E0401, # unable to import (but it can)
+    E0602, # supposed to be uh... Undefined variable, but now it just blabbles on about my constants
+    W0107, # redundant pass statements
+    W0614, # unused wildcard import (bruh),
+    W1401  # backslashes and stuff
+
+[FORMAT]
+max-locals=35
+max-statements=90
+max-line-length=140
+
+[MESSAGES CONTROL]
+disable = locally-disabled
