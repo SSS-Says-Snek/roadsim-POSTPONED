@@ -5,6 +5,7 @@ from src import common
 
 class NodeType(enum.Enum):
     EMPTY = (255, 255, 255)
+    ROAD = (20, 20, 20)
 
 
 class Node:
@@ -24,4 +25,4 @@ class Node:
         self.screen = screen
 
     def draw(self, surf=None):
-        pygame.draw.rect(self.screen or surf, self.type.value, [self.x, self.y, self.width, self.width])
+        pygame.draw.rect(surf or self.screen, self.type.value, [self.x, self.y, self.width, self.width])

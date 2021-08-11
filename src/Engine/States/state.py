@@ -17,8 +17,8 @@ import functools
 
 import pygame
 
-from src import common
-from src.Engine.objects import Node
+from src import common, utils
+from src.Engine.objects import Node, NodeType
 from src.Engine.base import BaseState, DummyState
 
 
@@ -37,7 +37,10 @@ class GameState(BaseState):
         self.screen.blit(surf_to_blit, (0, 0))
 
     def handle_events(self, event):
-        pass
+        if pygame.mouse.get_pressed()[0]:
+            tile_coord = utils.pos_to_tile_coord(pygame.mouse.get_pos())
+            print(tile_coord)
+            self.grid[tile_coord[0]][tile_coord[1]].type = NodeType.ROAD
 
     @staticmethod
     def make_grid(rows, cols):
@@ -51,15 +54,13 @@ class GameState(BaseState):
 
         return grid
 
-    @functools.lru_cache(100)
+    # @functools.lru_cache(100)
     def draw_grid(self):
         surf_to_draw = pygame.Surface((int(common.WIDTH), int(common.HEIGHT)))
-        surf_to_draw.fill((245, 245, 245))
-        for i in range(common.rows):
-            # pygame.draw.line(surf_to_draw, (128, 128, 128), (0, i * common.node_size), (common.WIDTH, i * common.node_size))
 
+        for i in range(common.rows):
             for j in range(common.cols):
-                # pygame.draw.line(surf_to_draw, (128, 128, 128), (j * common.node_size, 0), (j * common.node_size, common.WIDTH))
-                pygame.draw.rect(surf_to_draw, (128, 128, 128), [i * common.node_size, j * common.node_size, common.node_size, common.node_size], 1)
                 self.grid[i][j].draw(surf_to_draw)
+                pygame.draw.rect(surf_to_draw, (128, 128, 128), [i * common.node_size, j * common.node_size, common.node_size, common.node_size], 1)
+
         return surf_to_draw

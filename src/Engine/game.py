@@ -14,6 +14,7 @@ import pygame
 from src import common
 from src import utils
 from src.Engine.States.state import GameState
+from src.Engine.Reusable.dropdowns import *
 
 
 class GameLoop:
@@ -26,12 +27,13 @@ class GameLoop:
         self.state = GameState(self)
         self.fps_setting = 60
 
+        self.test = DropDown((200, 200), 250, 50, ["Sus Chungus", "AEAEAEAEAEAE", "Potat Sus"], (128, 128, 128), "Sussus Amogus", 24, (0, 0, 0), hover_color=(150, 150, 150),
+                             border_color=(100, 100, 100), border_width=3, selection_rect_hover_color=(140, 140, 140))
+
         pygame.display.set_caption(common.TITLE)
 
     def run(self):
         while self.running:
-            dt = self.clock.tick(self.fps_setting) / 1000
-
             self.screen.fill((245, 245, 245))
 
             # Handles state methods
@@ -39,9 +41,13 @@ class GameLoop:
             self.handle_events()
             self.state.draw()
 
-            self.screen.blit(self.font.render("FPS: " + str(self.clock.get_fps()), True, (0, 0, 0)), (0, 0))
+            self.screen.blit(utils.load_font(30).render(f"FPS: {round(self.clock.get_fps(), 1)}", True, (0, 0, 0)), (0, 0))
+
+            # self.test.draw()
 
             pygame.display.update()
+
+            self.clock.tick(60)
 
         pygame.quit()
         sys.exit()
@@ -54,3 +60,4 @@ class GameLoop:
 
             if game_event.type == pygame.QUIT:
                 self.running = False
+            # self.test.handle_event(game_event)
