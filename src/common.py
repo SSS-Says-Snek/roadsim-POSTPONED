@@ -13,8 +13,9 @@ from pathlib import Path
 pygame.init()
 pygame.font.init()
 
-WIDTH, HEIGHT = (800, 600)
-SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
+GRID_WIDTH, GRID_HEIGHT = (800, 600)
+TOTAL_WIDTH, TOTAL_HEIGHT = (1000, 600)
+SCREEN = pygame.display.set_mode((TOTAL_WIDTH, TOTAL_HEIGHT))
 
 TITLE = "Roadsim"
 

@@ -31,6 +31,8 @@ class DropDown:
         self.selection_rect_color = selection_rect_color or self.rect_color
         self.selection_rect_hover_color = selection_rect_hover_color
 
+        self.on_selection = lambda: None
+
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.main_rect.collidepoint(event.pos) and not self.in_selection_screen:
@@ -40,6 +42,8 @@ class DropDown:
                 if self.selection_rect.collidepoint(event.pos):
                     idx_clicked = (event.pos[1] - self.pos[1]) // self.height - 1
                     self.selected_idx = idx_clicked
+
+                    self.on_selection()
                 self.in_selection_screen = False
 
     def draw(self, mouse_pos=None):
@@ -128,5 +132,11 @@ class DropDown:
                 ]
             )
 
-    def get_selected(self):
-        return self.items[self.selected_idx], self.selected_idx
+    def get_selected_text(self):
+        return self.items[self.selected_idx]
+
+    def get_selected_idx(self):
+        return self.selected_idx
+
+    def bind_on_selection(self, func_to_bind):
+        self.on_selection = func_to_bind
