@@ -127,3 +127,6 @@ class DropDown:
                     (self.pos[0] + 8 * self.width // 9, self.pos[1] + 4 * self.height // 5)
                 ]
             )
+
+    def get_selected(self):
+        return self.items[self.selected_idx], self.selected_idx
