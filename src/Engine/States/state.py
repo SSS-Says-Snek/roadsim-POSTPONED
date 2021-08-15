@@ -19,7 +19,8 @@ import pygame
 
 from src import common, utils
 from src.Engine.Reusable.dropdowns import DropDown
-from src.Engine.objects import Node, NodeType
+from src.Engine.States.sidebars import DefaultSideBar
+from src.Engine.objects import Node, NodeType, game_data
 from src.Engine.base import BaseState, DummyState
 
 
@@ -33,17 +34,16 @@ class GameState(BaseState):
         
         self.grid = self.make_grid(common.rows, common.cols)
 
-        self.nodetype_select = DropDown((common.GRID_WIDTH + 10, 10), 150, 40, ["Test"], (128, 128, 128),
-                                        "Road", 19, (0, 0, 0), (128, 128, 128), (140, 140, 140), (150, 150, 150),
-                                        (100, 100, 100), 5)
-        self.nodetype_select.bind_on_selection(self.on_nodetype_select_selection)
         self.node_to_draw = NodeType.ROAD
+
+        game_data.game_state = self
+        self.default_sidebar = DefaultSideBar()
 
     def draw(self):
         surf_to_blit = self.draw_grid()
         self.screen.blit(surf_to_blit, (0, 0))
 
-        self.nodetype_select.draw()
+        self.default_sidebar.draw()
 
     def handle_events(self, event):
         mouse_pos = pygame.mouse.get_pos()
@@ -52,7 +52,7 @@ class GameState(BaseState):
             print(tile_coord)
             self.grid[tile_coord[0]][tile_coord[1]].type = self.node_to_draw
 
-        self.nodetype_select.handle_event(event)
+        self.default_sidebar.handle_events(event)
 
     @staticmethod
     def make_grid(rows, cols):
@@ -78,5 +78,5 @@ class GameState(BaseState):
         return surf_to_draw
 
     def on_nodetype_select_selection(self):
-        node_got = NodeType.nodetype_str_to_nodetype(self.nodetype_select.get_selected_text())
+        node_got = NodeType.nodetype_str_to_nodetype(self.default_sidebar.nodetype_select.get_selected_text())
         self.node_to_draw = node_got

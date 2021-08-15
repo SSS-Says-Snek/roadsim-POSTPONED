@@ -44,3 +44,9 @@ class Node:
 
     def draw(self, surf=None):
         pygame.draw.rect(surf or self.screen, self.type.value, [self.x, self.y, self.width, self.width])
+
+
+class GameData:
+    game_state = None
+
+game_data = GameData()
