@@ -11,10 +11,12 @@ class NoneTypeWarning(Warning):
 class NodeType(enum.Enum):
     EMPTY = (255, 255, 255)
     ROAD = (20, 20, 20)
+    WORN_DOWN_ROAD = (100, 100, 100)
 
     def nodetype_str_to_nodetype(nodestr):
         conversion_dict = {
-            "Road": NodeType.ROAD
+            "Road": NodeType.ROAD,
+            "Worn Down Road": NodeType.WORN_DOWN_ROAD
         }
 
         if conversion_dict.get(nodestr, None) is None:

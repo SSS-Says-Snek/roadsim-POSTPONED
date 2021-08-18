@@ -18,7 +18,7 @@ import functools
 import pygame
 
 from src import common, utils
-from src.Engine.Reusable.dropdowns import DropDown
+from src.Engine.Reusable.button import Button
 from src.Engine.States.sidebars import DefaultSideBar
 from src.Engine.objects import Node, NodeType, game_data
 from src.Engine.base import BaseState, DummyState
@@ -39,20 +39,26 @@ class GameState(BaseState):
         game_data.game_state = self
         self.default_sidebar = DefaultSideBar()
 
+        self.settings_button = Button(common.SCREEN, (common.TOTAL_WIDTH - 50, 10, 40, 40), None,
+                                      (128, 128, 128), "Settings", (0, 0, 0), 10, True, (100, 100, 100), 3, (150, 150, 150),
+                                      False)
+
     def draw(self):
         surf_to_blit = self.draw_grid()
         self.screen.blit(surf_to_blit, (0, 0))
 
         self.default_sidebar.draw()
+        self.settings_button.draw()
 
     def handle_events(self, event):
         mouse_pos = pygame.mouse.get_pos()
-        if pygame.mouse.get_pressed()[0] and 0 < mouse_pos[0] < common.GRID_WIDTH and 0 < mouse_pos[1] < common.GRID_HEIGHT:
+        if pygame.mouse.get_pressed(3)[0] and 0 < mouse_pos[0] < common.GRID_WIDTH and 0 < mouse_pos[1] < common.GRID_HEIGHT:
             tile_coord = utils.pos_to_tile_coord(pygame.mouse.get_pos())
             print(tile_coord)
             self.grid[tile_coord[0]][tile_coord[1]].type = self.node_to_draw
 
         self.default_sidebar.handle_events(event)
+        self.settings_button.handle_event(event)
 
     @staticmethod
     def make_grid(rows, cols):
@@ -73,7 +79,16 @@ class GameState(BaseState):
         for i in range(common.rows):
             for j in range(common.cols):
                 self.grid[i][j].draw(surf_to_draw)
-                pygame.draw.rect(surf_to_draw, (128, 128, 128), [i * common.node_size, j * common.node_size, common.node_size, common.node_size], 1)
+                pygame.draw.rect(
+                    surf_to_draw, (
+                        128, 128, 128
+                    ), [
+                        i * common.node_size,
+                        j * common.node_size,
+                        common.node_size,
+                        common.node_size
+                    ], 1
+                )
 
         return surf_to_draw
 
