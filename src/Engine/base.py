@@ -105,3 +105,12 @@ class DummyState:
     def constant_run(self):
         """Override this function while inheriting from this class"""
         pass
+
+
+class BaseSideBar:
+    def __init__(self, screen=common.SCREEN):
+        self.next_sidebar = (self.__class__, None, None)
+        self.screen = screen
+
+    def change_sidebar(self, other_sidebar, *args, **kwargs):
+        self.next_sidebar = (other_sidebar, args, kwargs)

@@ -41,6 +41,9 @@ class Node:
 
         self.type = NodeType.EMPTY
         self.extra_content = None
+        self.properties = {
+            "traffic": None
+        }
 
         self.screen = screen
 

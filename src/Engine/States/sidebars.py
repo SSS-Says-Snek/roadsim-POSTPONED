@@ -1,11 +1,12 @@
 from src import common
 from src.Engine.Reusable.dropdowns import DropDown
 from src.Engine.objects import game_data
+from src.Engine.base import BaseSideBar
 
 
-class DefaultSideBar:
+class DefaultSideBar(BaseSideBar):
     def __init__(self, screen=common.SCREEN):
-        self.screen = screen
+        super().__init__(screen)
 
         self.nodetype_select = DropDown((common.GRID_WIDTH + 10, 80), 150, 40, ["Test", "Worn Down Road"], (128, 128, 128),
                                         "Road", 19, (0, 0, 0), (128, 128, 128), (140, 140, 140), (150, 150, 150),
