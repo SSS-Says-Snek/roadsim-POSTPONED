@@ -13,7 +13,7 @@ The basic structure of state machines is:
 >>> from src.Engine.States.state import *
 >>> MenuState().draw()
 """
-import functools
+# import functools
 
 import pygame
 
@@ -85,7 +85,7 @@ class GameState(BaseState):
         return grid
 
     def draw_grid(self):
-        surf_to_draw = pygame.Surface((int(common.GRID_WIDTH), int(common.GRID_HEIGHT)))
+        surf_to_draw = pygame.Surface((int(common.GRID_WIDTH), int(common.GRID_HEIGHT)))  # lgtm [py/call/wrong-arguments]
 
         for i in range(common.rows):
             for j in range(common.cols):

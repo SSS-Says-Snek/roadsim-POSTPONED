@@ -108,8 +108,8 @@ class ImageButton:
 
         self.rect = self.image.get_rect(topleft=self.coords)
 
-    def draw(self, mouse_pos=None):
-        mouse_pos = mouse_pos or pygame.mouse.get_pos()
+    def draw(self):  # , mouse_pos=None):
+        # mouse_pos = mouse_pos or pygame.mouse.get_pos()
 
         self.screen.blit(self.image, self.coords)
 

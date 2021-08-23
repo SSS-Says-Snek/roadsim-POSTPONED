@@ -13,7 +13,7 @@ class NodeType(enum.Enum):
     ROAD = (20, 20, 20)
     WORN_DOWN_ROAD = (100, 100, 100)
 
-    def nodetype_str_to_nodetype(nodestr):
+    def nodetype_str_to_nodetype(nodestr):  # lgtm [py/not-named-self]
         conversion_dict = {
             "Road": NodeType.ROAD,
             "Worn Down Road": NodeType.WORN_DOWN_ROAD
