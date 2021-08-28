@@ -54,4 +54,5 @@ class Node:
 class GameData:
     game_state = None
 
+
 game_data = GameData()

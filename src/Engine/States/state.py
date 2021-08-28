@@ -19,7 +19,7 @@ import pygame
 
 from src import common, utils
 from src.Engine.Reusable.button import Button
-from src.Engine.States.sidebars import DefaultSideBar
+from src.Engine.States.sidebars import DefaultSidebar, NodeInfoSidebar
 from src.Engine.objects import Node, NodeType, game_data
 from src.Engine.base import BaseState, DummyState
 
@@ -37,7 +37,7 @@ class GameState(BaseState):
         self.node_to_draw = NodeType.ROAD
 
         game_data.game_state = self
-        self.sidebar = DefaultSideBar()
+        self.sidebar = DefaultSidebar()
 
         self.settings_button = Button(common.SCREEN, (common.TOTAL_WIDTH - 50, 10, 40, 40), None,
                                       (128, 128, 128), "Settings", (0, 0, 0), 10, True, (100, 100, 100), 3, (150, 150, 150),
@@ -55,7 +55,7 @@ class GameState(BaseState):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if pygame.mouse.get_pressed(3)[2]:
                 tile_coord = utils.pos_to_tile_coord(pygame.mouse.get_pos())
-                print(tile_coord)
+                self.sidebar.change_sidebar(NodeInfoSidebar, self.grid[tile_coord[0]][tile_coord[1]], node_pos=tile_coord)
 
         if pygame.mouse.get_pressed(3)[0] and (0 < mouse_pos[0] < common.GRID_WIDTH and
                                                0 < mouse_pos[1] < common.GRID_HEIGHT):
@@ -70,7 +70,7 @@ class GameState(BaseState):
         if self.sidebar.__class__ != self.sidebar.next_sidebar[0]:
             args = self.sidebar.next_sidebar[1] or {}
             kwargs = self.sidebar.next_sidebar[2] or {}
-            self.sidebar = self.sidebar.next_sidebar[0](*args, **kwargs)
+            self.sidebar = self.sidebar.next_sidebar[0](common.SCREEN, *args, **kwargs)
 
     @staticmethod
     def make_grid(rows, cols):
